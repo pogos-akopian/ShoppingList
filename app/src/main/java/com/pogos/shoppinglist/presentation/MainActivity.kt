@@ -2,6 +2,7 @@ package com.pogos.shoppinglist.presentation
 
 import android.os.Bundle
 import android.util.Log
+import android.window.OnBackInvokedDispatcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
                 val intent = ShopItemActivity.newIntentAddItem(this)
                 startActivity(intent)
             } else {
-                launchFragment(ShopItemFragment.newInstanceAddItem())
+                launchFragment(ShopItemFragment.newInstanceAddItem(), "add")
             }
 
         }
@@ -42,12 +43,15 @@ class MainActivity : AppCompatActivity() {
         return shopItemContainer == null
     }
 
-    private fun launchFragment(fragment: Fragment) {
-        supportFragmentManager.popBackStack()
+    private fun launchFragment(fragment: Fragment, name: String) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.shop_item_container, fragment)
-            .addToBackStack(null)
+            .addToBackStack(name)
             .commit()
+    }
+
+    override fun onBackPressed() {
+        supportFragmentManager.popBackStack("add", 0)
     }
 
     private fun setupRecyclerView() {
@@ -98,7 +102,7 @@ class MainActivity : AppCompatActivity() {
                 val intent = ShopItemActivity.newIntentEditItem(this, it.id)
                 startActivity(intent)
             } else {
-                launchFragment(ShopItemFragment.newInstanceEditItem(it.id))
+                launchFragment(ShopItemFragment.newInstanceEditItem(it.id), "edit")
             }
 
         }
