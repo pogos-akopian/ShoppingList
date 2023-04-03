@@ -32,6 +32,7 @@ class ShopItemFragment : Fragment() {
 
 
     override fun onAttach(context: Context) {
+        Log.d("ShopItemFragment", "onAttach")
         super.onAttach(context)
         if (context is OnEditingFinishedListener) {
             onEditingFinishedListener = context
@@ -41,25 +42,64 @@ class ShopItemFragment : Fragment() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.d("ShopItemFragment", "onCreate")
         super.onCreate(savedInstanceState)
         parseParams()
     }
 
     override fun onCreateView(
+
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d("ShopItemFragment", "onCreateView")
         return inflater.inflate(R.layout.fragment_shop_item, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.d("ShopItemFragment", "onViewCreated")
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[ShopItemViewModel::class.java]
         initViews(view)
         addTextChangeListeners()
         launchRightMode()
         observeViewModel()
+    }
+
+    override fun onStart() {
+        Log.d("ShopItemFragment", "onStart")
+        super.onStart()
+    }
+
+    override fun onResume() {
+        Log.d("ShopItemFragment", "onResume")
+        super.onResume()
+    }
+
+    override fun onPause() {
+        Log.d("ShopItemFragment", "onPause")
+        super.onPause()
+    }
+
+    override fun onStop() {
+        Log.d("ShopItemFragment", "onStop")
+        super.onStop()
+    }
+
+    override fun onDestroyView() {
+        Log.d("ShopItemFragment", "onDestroyView")
+        super.onDestroyView()
+    }
+
+    override fun onDestroy() {
+        Log.d("ShopItemFragment", "onDestroy")
+        super.onDestroy()
+    }
+
+    override fun onDetach() {
+        Log.d("ShopItemFragment", "onDetach")
+        super.onDetach()
     }
 
     private fun observeViewModel() {
